@@ -1,0 +1,33 @@
+=pod
+
+=head1 Ansible Playbook for Mysql Cluster
+
+Ansible playbook that install a Mysql-Cluster 7.3 for Linux x86_64, with support for multiple
+clusters and a differant number of sql, data or management nodes.
+
+=head2 Adding hosts
+
+Just add your new host to the corresponding section and specify the cluster it
+belongs to in the mysql_cluster variable.
+
+  [mysql_cluster_data]
+  ndb0 mysql_cluster=test
+  ndb1 mysql_cluster=test
+  [mysql_cluster_sql]
+  ndb0 mysql_cluster=test
+  ndb1 mysql_cluster=test
+  [mysql_cluster_mgm]
+  ndb-mgm mysql_cluster=test
+
+=head2 Installation
+
+  ansible-playbook -l ndb* --sudo  mysql-cluster.yaml
+
+=head1 Limitations
+
+It isn't possible to install other version of Mysql-Cluster by setting a
+variable. That should be easy to fix if somebody just checks the installation
+paths and tries if the playbook still works with older or newer versions.
+Patches are welcome... :)
+
+=cut
