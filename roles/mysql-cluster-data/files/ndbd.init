@@ -20,7 +20,7 @@ if ! test -x $ndbd_bin; then
 fi
  
 start_ndbd(){
-	number_of_ndbd_pids=`ps aux|grep -iv "grep"|grep -i "/usr/local/mysql/bin/ndbd"|wc -l`
+	number_of_ndbd_pids=`ps aux|grep -iv "grep"|grep -i "/usr/local/bin/ndbd"|wc -l`
 	if [ $number_of_ndbd_pids -eq 0 ]; then
 		$ndbd_bin
 		echo "ndbd started."
@@ -30,14 +30,14 @@ start_ndbd(){
 }
  
 stop_ndbd(){
-	number_of_ndbd_pids=`ps aux|grep -iv "grep"|grep -i "/usr/local/mysql/bin/ndbd"|wc -l`
+	number_of_ndbd_pids=`ps aux|grep -iv "grep"|grep -i "/usr/local/bin/ndbd"|wc -l`
         if [ $number_of_ndbd_pids -ne 0 ]; then
 		ndbd_pids=`pgrep ndbd`
         	for ndbd_pid in $(echo $ndbd_pids); do
                 	kill $ndbd_pid 2> /dev/null
         	done
  
-		number_of_ndbd_pids=`ps aux|grep -iv "grep"|grep -i "/usr/local/mysql/bin/ndbd"|wc -l`
+		number_of_ndbd_pids=`ps aux|grep -iv "grep"|grep -i "/usr/local/bin/ndbd"|wc -l`
  
         	if [ $number_of_ndbd_pids -eq 0 ]; then
                 	echo "ndbd stopped."
