@@ -1,0 +1,2 @@
+- name: install the latest version of wget
+  package: name=wget state=latest
