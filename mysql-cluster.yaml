@@ -1,11 +1,14 @@
 - hosts: mysql_cluster_mgm
   roles:
+  - wgetter
   - mysql-cluster-mgm
 
 - hosts: mysql_cluster_data
   roles:
+  - wgetter
   - mysql-cluster-data
 
 - hosts: mysql_cluster_sql
   roles:
+  - wgetter
   - mysql-cluster-sql

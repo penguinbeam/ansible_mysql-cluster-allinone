@@ -1,5 +1,3 @@
-- name: Install dependencies
-  apt: pkg=libaio1
 - name: Download binaries
   command: wget -P /var/tmp http://dev.mysql.com/get/Downloads/MySQL-Cluster-7.3/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz creates=/var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz
 - name: Extract binaries
