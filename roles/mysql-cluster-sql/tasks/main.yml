@@ -1,11 +1,11 @@
-- name: Install dependencies
-  apt: pkg=libaio1
+- name: install the latest version of dumper for mysql install script 
+  yum: name=perl-Data-Dumper state=latest
 - name: Download binaries
   command: wget -P /var/tmp http://dev.mysql.com/get/Downloads/MySQL-Cluster-7.3/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz creates=/var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz
 - name: Extract binaries
   command: tar -C /usr/local -xzf /var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz creates=/usr/local/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64
 - name: Link binary directory to short name
-  command: ln -s /usr/local/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64 /usr/local/mysql creates=/usr/local/mysql
+  file: src=/usr/local/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64 dest=/usr/local/mysql state=link 
 - name: Create mysql group
   group: name=mysql system=yes
 - name: Create myslq user
