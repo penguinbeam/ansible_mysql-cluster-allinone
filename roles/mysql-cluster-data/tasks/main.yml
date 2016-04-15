@@ -2,6 +2,12 @@
   command: wget -P /var/tmp http://dev.mysql.com/get/Downloads/MySQL-Cluster-7.3/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz creates=/var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz
 - name: Extract binaries
   command: tar -C /var/tmp -xzf /var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz creates=/var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64
+
+- name: Extract binaries
+  command: tar -C /usr/local -xzf /var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64.tar.gz creates=/usr/local/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64
+- name: Link binary directory to short name
+  file: src=/usr/local/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64 dest=/usr/local/mysql state=link
+
 - name: Install nbd binaries
   command: install /var/tmp/mysql-cluster-gpl-7.3.4-linux-glibc2.5-x86_64/bin/ndbd /usr/local/bin/ndbd creates=/usr/local/bin/ndbd
 - name: Install config
@@ -10,5 +16,7 @@
   copy: src=ndbd.init dest=/etc/init.d/ndbd
 - name: Activate init file
   service: name=ndbd enabled=yes
+- name: Stop ndbd so we can start it with initial
+  service: name=ndbd.server state=stopped
 - name: Initialize ndbd
-  command: /usr/local/mysql/bin/ndbd --initial creates=/usr/local/mysql/data/ndbinfo/
+  command: /usr/local/bin/ndbd --initial creates=/opt/mysql/data/ndbinfo/
